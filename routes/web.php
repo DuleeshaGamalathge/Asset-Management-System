@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\BusinessController;
+// use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,3 +21,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Route::get('/business', [BusinessController::class, 'index']);
+// Route::get('/business/create', [App\Http\Controllers\BusinessController::class, 'create_form'])->name('company.business.create.form');
+// Route::get('/business/get', [App\Http\Controllers\BusinessController::class, 'store_business'])->name('company.business.get');
+// Route::post('/business/create', [App\Http\Controllers\BusinessController::class, 'create'])->name('company.business.create');
+
+
+Route::resource('business', BusinessController::class);
