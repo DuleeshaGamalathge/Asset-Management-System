@@ -5,21 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Business extends Model
+class BusinessUser extends Model
 {
     use HasFactory;
 
+    protected $table="business_user";
+    
     protected $fillable = [
+        'first_name',
+        'last_name',
         'name',
-        'business_email',
-        'street_no',
-        'address',
-        'city',
+        'business_user_email',
+        'contact',
         'status', // 0 = Inactive, 1 = Active
     ];
 
-    // public function users()
+    // public function business()
     // {
-    //     return $this->hasMany(BusinessUser::class);
+    //     return $this->belongsTo(Business::class);
     // }
 }

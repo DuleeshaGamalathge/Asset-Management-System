@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BusinessController;
-// use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\BusinessUserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,10 +24,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-// Route::get('/business', [BusinessController::class, 'index']);
-// Route::get('/business/create', [App\Http\Controllers\BusinessController::class, 'create_form'])->name('company.business.create.form');
-// Route::get('/business/get', [App\Http\Controllers\BusinessController::class, 'store_business'])->name('company.business.get');
-// Route::post('/business/create', [App\Http\Controllers\BusinessController::class, 'create'])->name('company.business.create');
-
-
 Route::resource('business', BusinessController::class);
+Route::resource('business_user', BusinessUserController::class);
+Route::resource('inventory_categories', InventoryCategoryController::class);
+
+// Route::get('/inventory_categories', [InventoryCategoryController::class, 'index'])->name('inventory_categories.index');

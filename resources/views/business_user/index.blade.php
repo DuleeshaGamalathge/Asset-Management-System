@@ -2,23 +2,24 @@
 
 @section('content')
 
-<div class="container">
+<div class="container py-3">
     <div class="row justify-content-between">
-        <div class="col-4">
-            <h1 class="g-col-6">Business Table</h1>
+        <div class="col-6">
+            <h1>Business User Table</h1>
         </div>
         <div class="col-4">
-            <a class="btn btn-success my-2 justify-content-end" href="javascript:void(0)" id="createNewBusiness"> Create New Business</a>        </div>
+            <a class="btn btn-success my-4" href="javascript:void(0)" id="createNewBusinessUser"> Create New Business User</a>
+        </div>
     </div>
-    <table class="table table-bordered data-table">
+    <table class="table table-bordered data-table mt-5" id="employee_table">
         <thead>
             <tr>
                 <th>No</th>
+                <th>First Name</th>
+                <th>Last Name</th>
                 <th>Name</th>
-                <th>Business Email</th>
-                <th>Street No</th>
-                <th>Address</th>
-                <th>City</th>
+                <th>Email</th>
+                <th>Contact</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
@@ -28,6 +29,8 @@
     </table>
 </div>
 
+
+
 <div class="modal fade" id="ajaxModel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -35,8 +38,20 @@
                 <h4 class="modal-title" id="modelHeading"></h4>
             </div>
             <div class="modal-body">
-                <form id="businessForm" name="businessForm" class="form-horizontal">
-                   <input type="hidden" name="business_id" id="business_id">
+                <form id="business_userForm" name="business_userForm" class="form-horizontal">
+                   <input type="hidden" name="business_user_id" id="business_user_id">
+                   <div class="form-group">
+                        <label for="first_name" class="col control-label">First Name</label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter First Name" value="" maxlength="50" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name" class="col control-label">Last Name</label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter Last Name" value="" maxlength="50" required="">
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="name" class="col control-label">Name</label>
                         <div class="col-sm-12">
@@ -44,27 +59,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="business_email" class="col control-label">Business Email</label>
+                        <label for="business_user_email" class="col control-label">Business User Email</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="business_email" name="business_email" placeholder="Enter Email" value="" maxlength="50" required="">
+                            <input type="text" class="form-control" id="business_user_email" name="business_user_email" placeholder="Enter Email" value="" maxlength="50" required="">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="street_no" class="col control-label">Street No</label>
+                        <label for="contact" class="col control-label">Contact Number</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="street_no" name="street_no" placeholder="Enter Street No" value="" maxlength="50" required="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="address" class="col control-label">Address</label>
-                        <div class="col-sm-12">
-                            <input type="text" class="form-control" id="address" name="address" placeholder="Enter address" value="" maxlength="50" required="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="city" class="col control-label">City</label>
-                        <div class="col-sm-12">
-                            <input type="text" class="form-control" id="city" name="city" placeholder="Enter city" value="" maxlength="50" required="">
+                            <input type="text" class="form-control" id="contact" name="contact" placeholder="Enter Contact Number" value="" maxlength="50" required="">
                         </div>
                     </div>
                     <div class="form-group">
@@ -106,17 +109,17 @@
     Render DataTable
     --------------------------------------------
     --------------------------------------------*/
-    var table = $('.data-table').DataTable({
+    var table = $('#employee_table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('business.index') }}",
+        ajax: "{{ route('business_user.index') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'first_name', name: 'first_name'},
+            {data: 'last_name', name: 'last_name'},
             {data: 'name', name: 'name'},
-            {data: 'business_email', name: 'business_email'},
-            {data: 'street_no', name: 'street_no'},
-            {data: 'address', name: 'address'},
-            {data: 'city', name: 'city'},
+            {data: 'business_user_email', name: 'business_user_email'},
+            {data: 'contact', name: 'contact'},
             {data: 'status', name: 'status'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
@@ -127,11 +130,11 @@
     Click to Button
     --------------------------------------------
     --------------------------------------------*/
-    $('#createNewBusiness').click(function () {
-        $('#saveBtn').val("create-business");
-        $('#business_id').val('');
-        $('#businessForm').trigger("reset");
-        $('#modelHeading').html("Create New Business");
+    $('#createNewBusinessUser').click(function () {
+        $('#saveBtn').val("create-business_user");
+        $('#business_user_id').val('');
+        $('#business_userForm').trigger("reset");
+        $('#modelHeading').html("Create New BusinessUser");
         $('#ajaxModel').modal('show');
     });
 
@@ -140,25 +143,25 @@
     Click to Edit Button
     --------------------------------------------
     --------------------------------------------*/
-    $('body').on('click', '.editBusiness', function () {
-      var business_id = $(this).data('id');
-      $.get("{{ route('business.index') }}" +'/' + business_id +'/edit', function (data) {
-          $('#modelHeading').html("Edit Business");
+    $('body').on('click', '.editBusinessUser', function () {
+      var business_user_id = $(this).data('id');
+      $.get("{{ route('business_user.index') }}" +'/' + business_user_id +'/edit', function (data) {
+          $('#modelHeading').html("Edit BusinessUser");
           $('#saveBtn').val("edit-user");
           $('#ajaxModel').modal('show');
-          $('#business_id').val(data.id);
+          $('#business_user_id').val(data.id);
+          $('#first_name').val(data.first_name);
+          $('#last_name').val(data.last_name);
           $('#name').val(data.name);
-          $('#business_email').val(data.business_email);
-          $('#street_no').val(data.street_no);
-          $('#address').val(data.address);
-          $('#city').val(data.city);
+          $('#business_user_email').val(data.business_user_email);
+          $('#contact').val(data.contact);
           $('#status').val(data.status);
       })
     });
 
     /*------------------------------------------
     --------------------------------------------
-    Create Business Code
+    Create BusinessUser Code
     --------------------------------------------
     --------------------------------------------*/
     $('#saveBtn').click(function (e) {
@@ -166,13 +169,13 @@
         $(this).html('Sending..');
 
         $.ajax({
-          data: $('#businessForm').serialize(),
-          url: "{{ route('business.store') }}",
+          data: $('#business_userForm').serialize(),
+          url: "{{ route('business_user.store') }}",
           type: "POST",
           dataType: 'json',
           success: function (data) {
 
-              $('#businessForm').trigger("reset");
+              $('#business_userForm').trigger("reset");
               $('#ajaxModel').modal('hide');
               table.draw();
 
@@ -186,18 +189,18 @@
 
     /*------------------------------------------
     --------------------------------------------
-    Delete Business Code
+    Delete BusinessUser Code
     --------------------------------------------
     --------------------------------------------*/
-    $('body').on('click', '.deleteBusiness', function () {
+    $('body').on('click', '.deleteBusinessUser', function () {
 
-        var business_id = $(this).data("id");
+        var business_user_id = $(this).data("id");
         var confirmDelete = confirm("Are You sure want to delete !");
 
         if(confirmDelete){
             $.ajax({
                 type: "DELETE",
-                url: "{{ route('business.store') }}"+'/'+business_id,
+                url: "{{ route('business_user.store') }}"+'/'+business_user_id,
                 success: function (data) {
                     table.draw();
                 },
@@ -213,4 +216,5 @@
 
   });
 </script>
+
 @endsection
