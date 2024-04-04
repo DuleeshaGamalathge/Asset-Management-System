@@ -21,6 +21,7 @@
                 <th>Email</th>
                 <th>Contact</th>
                 <th>Status</th>
+                <th>Business</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -61,7 +62,7 @@
                     <div class="form-group">
                         <label for="business_user_email" class="col control-label">Business User Email</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="business_user_email" name="business_user_email" placeholder="Enter Email" value="" maxlength="50" required="">
+                            <input type="email" class="form-control" id="business_user_email" name="business_user_email" placeholder="Enter Email" value="" maxlength="50" required="">
                         </div>
                     </div>
                     <div class="form-group">
@@ -75,6 +76,18 @@
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" name="status" checked role="switch" id="status">
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="business_id">Business</label>
+                        <select name="business_id" class="form-control">
+                            <option value="">Select Business</option>
+                            @foreach ($businesses as $business)
+                                <option value="{{ $business->id }}">
+                                 <p class="text-black bg-white">{{ $business->business_name }}</p>
+                                </option>
+                            @endforeach
+                        </select>
+
                     </div>
 
                     <div class="col-sm-offset-2 col-sm-10">
@@ -121,6 +134,7 @@
             {data: 'business_user_email', name: 'business_user_email'},
             {data: 'contact', name: 'contact'},
             {data: 'status', name: 'status'},
+            {data: 'business_id', name: 'business_id'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
@@ -156,6 +170,7 @@
           $('#business_user_email').val(data.business_user_email);
           $('#contact').val(data.contact);
           $('#status').val(data.status);
+          $('#business_id').val(data.business_id);
       })
     });
 

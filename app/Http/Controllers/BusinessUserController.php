@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\BusinessUser;
+use App\Models\Business;
+
 use Illuminate\Http\Request;
 use DataTables;
 // use App\Models\User;
@@ -16,7 +18,7 @@ class BusinessUserController extends Controller
      */
     public function index(Request $request)
     {
-       
+
         if ($request->ajax()) {
 
             $data = BusinessUser::latest()->get();
@@ -37,8 +39,9 @@ class BusinessUserController extends Controller
         }
         // $business_id = session()->get('business_id');
         // $business = Business::where(['business_id'=>$business_id, 'status' => 1])->orderBy('name','ASC')->get();
+        $businesses = Business::all();
 
-        return view('business_user.index');
+        return view('business_user.index', compact('businesses'));
     }
 
     /**
@@ -59,6 +62,7 @@ class BusinessUserController extends Controller
                     'business_user_email' => $request->business_user_email,
                     'contact' => $request->contact,
                     'status' => $request->status == true ? 1 : 0,
+                    'business_id'=> $request->business_id
                 ]);
 
         return response()->json(['success'=>'BusinessUser saved successfully.']);

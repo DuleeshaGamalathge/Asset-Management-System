@@ -57,6 +57,10 @@
                                 </li>
                             @endif
                         @else
+
+                            <a href="{{url('business')}}" class="btn btn-dark mx-3 btn-sm">Business</a>
+                            <a href="{{url('business_user')}}" class="btn btn-dark mx-3 btn-sm">Business Users</a>
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}

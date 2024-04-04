@@ -10,7 +10,7 @@ class BusinessUser extends Model
     use HasFactory;
 
     protected $table="business_user";
-    
+
     protected $fillable = [
         'first_name',
         'last_name',
@@ -18,10 +18,11 @@ class BusinessUser extends Model
         'business_user_email',
         'contact',
         'status', // 0 = Inactive, 1 = Active
+        'business_id',
     ];
 
-    // public function business()
-    // {
-    //     return $this->belongsTo(Business::class);
-    // }
+    public function business()
+    {
+        return $this->belongsTo(Business::class);
+    }
 }

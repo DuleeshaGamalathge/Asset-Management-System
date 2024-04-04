@@ -18,8 +18,10 @@ class Business extends Model
         'status', // 0 = Inactive, 1 = Active
     ];
 
-    // public function users()
-    // {
-    //     return $this->hasMany(BusinessUser::class);
-    // }
+    public function users()
+    {
+        return $this->hasMany(BusinessUser::class);
+    }
+    
+
 }
