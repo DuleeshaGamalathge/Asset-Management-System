@@ -4,11 +4,12 @@
 
 <div class="container">
     <div class="row justify-content-between">
-        <div class="col-4">
+        <div class="col-6">
             <h1 class="g-col-6">Business Table</h1>
         </div>
         <div class="col-4">
-            <a class="btn btn-success my-2 justify-content-end" href="javascript:void(0)" id="createNewBusiness"> Create New Business</a>        </div>
+            <a class="btn btn-success" href="javascript:void(0)" id="createNewBusiness"> Create New Business</a>
+        </div>
     </div>
     <table class="table table-bordered data-table">
         <thead>

@@ -2,13 +2,13 @@
 
 @section('content')
 
-<div class="container py-3">
+<div class="container">
     <div class="row justify-content-between">
         <div class="col-6">
-            <h1>Business User Table</h1>
+            <h1 class="g-col-6">Business User Table</h1>
         </div>
         <div class="col-4">
-            <a class="btn btn-success my-4" href="javascript:void(0)" id="createNewBusinessUser"> Create New Business User</a>
+            <a class="btn btn-success" href="javascript:void(0)" id="createNewBusinessUser"> Create New Business User</a>
         </div>
     </div>
     <table class="table table-bordered data-table mt-5" id="employee_table">

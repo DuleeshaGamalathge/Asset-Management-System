@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\BusinessUser;
 use App\Models\Business;
-
 use Illuminate\Http\Request;
 use DataTables;
 // use App\Models\User;

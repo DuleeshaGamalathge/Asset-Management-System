@@ -26,7 +26,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md bg-dark shadow-sm" data-bs-theme="dark">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'AMS') }}
@@ -58,8 +58,8 @@
                             @endif
                         @else
 
-                            <a href="{{url('business')}}" class="btn btn-dark mx-3 btn-sm">Business</a>
-                            <a href="{{url('business_user')}}" class="btn btn-dark mx-3 btn-sm">Business Users</a>
+                            <a href="{{url('business')}}" class="btn btn-dark mx-3 btn-sm pt-2" role="button">Business</a>
+                            <a href="{{url('business_user')}}" class="btn btn-dark mx-3 btn-sm pt-2" role="button">Business Users</a>
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
