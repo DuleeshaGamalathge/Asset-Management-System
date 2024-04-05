@@ -66,7 +66,6 @@
                                 <option value="{{ $business->id }}">{{ $business->name }}</option>
                             @endforeach
                         </select>
-
                     </div>
 
                     <div class="col-sm-offset-2 col-sm-10">

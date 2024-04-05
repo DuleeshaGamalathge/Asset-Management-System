@@ -23,6 +23,15 @@ class InventoryCategoryController extends Controller
 
             return Datatables::of($data)
                     ->addIndexColumn()
+                    ->addColumn('status', function ($item) {
+                        if ($item->status == 0) {
+                            return '<span class="badge badge-danger">Inactive</span>';
+                        }
+
+                        if ($item->status == 1) {
+                            return '<span class="badge badge-success">Active</span>';
+                        }
+                    })
                     ->addColumn('action', function($row){
                         // $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Show" class="show btn btn-primary btn-sm showInventoryCategory">View</a>';
 
@@ -32,7 +41,7 @@ class InventoryCategoryController extends Controller
 
                         return $btn;
                     })
-                    ->rawColumns(['action'])
+                    ->rawColumns(['action', 'status'])
                     ->make(true);
         }
 
@@ -74,7 +83,7 @@ class InventoryCategoryController extends Controller
      */
     public function edit($id)
     {
-        
+
         $inventory_category = InventoryCategory::find($id);
         return response()->json($inventory_category);
 

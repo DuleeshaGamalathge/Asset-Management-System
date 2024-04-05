@@ -24,6 +24,15 @@ class BusinessUserController extends Controller
 
             return Datatables::of($data)
                     ->addIndexColumn()
+                    ->addColumn('status', function ($item) {
+                        if ($item->status == 0) {
+                            return '<span class="badge badge-danger">Inactive</span>';
+                        }
+
+                        if ($item->status == 1) {
+                            return '<span class="badge badge-success">Active</span>';
+                        }
+                    })
                     ->addColumn('action', function($row){
                         // $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Show" class="show btn btn-primary btn-sm showBusinessUser">View</a>';
 
@@ -33,11 +42,10 @@ class BusinessUserController extends Controller
 
                         return $btn;
                     })
-                    ->rawColumns(['action'])
+                    ->rawColumns(['action', 'status'])
                     ->make(true);
         }
-        // $business_id = session()->get('business_id');
-        // $business = Business::where(['business_id'=>$business_id, 'status' => 1])->orderBy('name','ASC')->get();
+        
         $businesses = Business::all();
 
         return view('business_user.index', compact('businesses'));
