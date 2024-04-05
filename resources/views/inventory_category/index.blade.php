@@ -5,21 +5,17 @@
 <div class="container">
     <div class="row justify-content-between">
         <div class="col-6">
-            <h1 class="g-col-6">Business User Table</h1>
+            <h1 class="g-col-6">Inventory Category Table</h1>
         </div>
         <div class="col-4">
-            <a class="btn btn-success" href="javascript:void(0)" id="createNewBusinessUser"> Create New Business User</a>
+            <a class="btn btn-success" href="javascript:void(0)" id="createNewInventoryCategory"> Create New Inventory Category</a>
         </div>
     </div>
-    <table class="table table-bordered data-table mt-5" id="employee_table">
+    <table class="table table-bordered data-table mt-5" id="inventory_category_table">
         <thead>
             <tr>
                 <th>No</th>
-                <th>First Name</th>
-                <th>Last Name</th>
                 <th>Name</th>
-                <th>Email</th>
-                <th>Contact</th>
                 <th>Status</th>
                 <th>Business</th>
                 <th>Action</th>
@@ -39,44 +35,29 @@
                 <h4 class="modal-title" id="modelHeading"></h4>
             </div>
             <div class="modal-body">
-                <form id="business_userForm" name="business_userForm" class="form-horizontal">
-                   <input type="hidden" name="business_user_id" id="business_user_id">
-                   <div class="form-group">
-                        <label for="first_name" class="col control-label">First Name</label>
-                        <div class="col-sm-12">
-                            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter First Name" value="" maxlength="50" required="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="last_name" class="col control-label">Last Name</label>
-                        <div class="col-sm-12">
-                            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter Last Name" value="" maxlength="50" required="">
-                        </div>
-                    </div>
+                <form id="inventory_categoryForm" name="inventory_categoryForm" class="form-horizontal">
+                   <input type="hidden" name="inventory_category_id" id="inventory_category_id">
+
                     <div class="form-group">
                         <label for="name" class="col control-label">Name</label>
                         <div class="col-sm-12">
                             <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" value="" maxlength="50" required="">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="business_user_email" class="col control-label">Business User Email</label>
-                        <div class="col-sm-12">
-                            <input type="email" class="form-control" id="business_user_email" name="business_user_email" placeholder="Enter Email" value="" maxlength="50" required="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="contact" class="col control-label">Contact Number</label>
-                        <div class="col-sm-12">
-                            <input type="text" class="form-control" id="contact" name="contact" placeholder="Enter Contact Number" value="" maxlength="50" required="">
-                        </div>
-                    </div>
+
                     <div class="form-group">
                         <label class="form-label" for="status">Status</label>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" name="status" checked role="switch" id="status">
                         </div>
                     </div>
+                    {{-- <div class="form-group">
+                        <label for="business_idbusiness_id" class="col control-label">id</label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="business_id" name="business_id" placeholder="Enter Name" value="" maxlength="50" required="">
+                        </div>
+                    </div> --}}
+
                     <div class="form-group">
                         <label class="form-label" for="business_id">Business</label>
                         <select name="business_id" class="form-control">
@@ -120,17 +101,13 @@
     Render DataTable
     --------------------------------------------
     --------------------------------------------*/
-    var table = $('#employee_table').DataTable({
+    var table = $('#inventory_category_table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('business_user.index') }}",
+        ajax: "{{ route('inventory_category.index') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'first_name', name: 'first_name'},
-            {data: 'last_name', name: 'last_name'},
             {data: 'name', name: 'name'},
-            {data: 'business_user_email', name: 'business_user_email'},
-            {data: 'contact', name: 'contact'},
             {data: 'status', name: 'status'},
             {data: 'business_id', name: 'business_id'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
@@ -142,11 +119,11 @@
     Click to Button
     --------------------------------------------
     --------------------------------------------*/
-    $('#createNewBusinessUser').click(function () {
-        $('#saveBtn').val("create-business_user");
-        $('#business_user_id').val('');
-        $('#business_userForm').trigger("reset");
-        $('#modelHeading').html("Create New BusinessUser");
+    $('#createNewInventoryCategory').click(function () {
+        $('#saveBtn').val("create-inventory_category");
+        $('#inventory_category_id').val('');
+        $('#inventory_categoryForm').trigger("reset");
+        $('#modelHeading').html("Create New InventoryCategory");
         $('#ajaxModel').modal('show');
     });
 
@@ -155,18 +132,14 @@
     Click to Edit Button
     --------------------------------------------
     --------------------------------------------*/
-    $('body').on('click', '.editBusinessUser', function () {
-      var business_user_id = $(this).data('id');
-      $.get("{{ route('business_user.index') }}" +'/' + business_user_id +'/edit', function (data) {
-          $('#modelHeading').html("Edit BusinessUser");
+    $('body').on('click', '.editInventoryCategory', function () {
+      var inventory_category_id = $(this).data('id');
+      $.get("{{ route('inventory_category.index') }}" +'/' + inventory_category_id +'/edit', function (data) {
+          $('#modelHeading').html("Edit InventoryCategory");
           $('#saveBtn').val("edit-user");
           $('#ajaxModel').modal('show');
-          $('#business_user_id').val(data.id);
-          $('#first_name').val(data.first_name);
-          $('#last_name').val(data.last_name);
+          $('#inventory_category_id').val(data.id);
           $('#name').val(data.name);
-          $('#business_user_email').val(data.business_user_email);
-          $('#contact').val(data.contact);
           $('#status').val(data.status);
           $('#business_id').val(data.business_id);
       })
@@ -174,7 +147,7 @@
 
     /*------------------------------------------
     --------------------------------------------
-    Create BusinessUser Code
+    Create InventoryCategory Code
     --------------------------------------------
     --------------------------------------------*/
     $('#saveBtn').click(function (e) {
@@ -182,13 +155,13 @@
         $(this).html('Sending..');
 
         $.ajax({
-          data: $('#business_userForm').serialize(),
-          url: "{{ route('business_user.store') }}",
+          data: $('#inventory_categoryForm').serialize(),
+          url: "{{ route('inventory_category.store') }}",
           type: "POST",
           dataType: 'json',
           success: function (data) {
 
-              $('#business_userForm').trigger("reset");
+              $('#inventory_categoryForm').trigger("reset");
               $('#ajaxModel').modal('hide');
               table.draw();
 
@@ -202,18 +175,18 @@
 
     /*------------------------------------------
     --------------------------------------------
-    Delete BusinessUser Code
+    Delete InventoryCategory Code
     --------------------------------------------
     --------------------------------------------*/
-    $('body').on('click', '.deleteBusinessUser', function () {
+    $('body').on('click', '.deleteInventoryCategory', function () {
 
-        var business_user_id = $(this).data("id");
+        var inventory_category_id = $(this).data("id");
         var confirmDelete = confirm("Are You sure want to delete !");
 
         if(confirmDelete){
             $.ajax({
                 type: "DELETE",
-                url: "{{ route('business_user.store') }}"+'/'+business_user_id,
+                url: "{{ route('inventory_category.store') }}"+'/'+inventory_category_id,
                 success: function (data) {
                     table.draw();
                 },

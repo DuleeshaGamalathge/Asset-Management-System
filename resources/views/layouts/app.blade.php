@@ -60,6 +60,7 @@
 
                             <a href="{{url('business')}}" class="btn btn-dark mx-3 btn-sm pt-2" role="button">Business</a>
                             <a href="{{url('business_user')}}" class="btn btn-dark mx-3 btn-sm pt-2" role="button">Business Users</a>
+                            <a href="{{url('inventory_category')}}" class="btn btn-dark mx-3 btn-sm pt-2" role="button">Inventory Categories</a>
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

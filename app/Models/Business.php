@@ -22,6 +22,10 @@ class Business extends Model
     {
         return $this->hasMany(BusinessUser::class);
     }
-    
+
+    public function invectoryCategories()
+    {
+        return $this->hasMany(InventoryCategory::class);
+    }
 
 }

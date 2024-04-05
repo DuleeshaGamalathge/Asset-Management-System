@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BusinessUserController;
+use App\Http\Controllers\InventoryCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('business', BusinessController::class);
 Route::resource('business_user', BusinessUserController::class);
-Route::resource('inventory_categories', InventoryCategoryController::class);
+Route::resource('inventory_category', InventoryCategoryController::class);
 
 // Route::get('/inventory_categories', [InventoryCategoryController::class, 'index'])->name('inventory_categories.index');
