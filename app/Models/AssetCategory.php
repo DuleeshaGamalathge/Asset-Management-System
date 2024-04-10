@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class InventoryCategory extends Model
+class AssetCategory extends Model
 {
     use HasFactory;
 
@@ -20,8 +20,8 @@ class InventoryCategory extends Model
         return $this->belongsTo(Business::class);
     }
 
-    public function inventory()
+    public function assetSubCategory()
     {
-        return $this->hasMany(Inventory::class);
+        return $this->hasMany(AssetSubCategory::class);
     }
 }

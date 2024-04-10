@@ -5,14 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class InventoryCategory extends Model
+class AssetSubCategory extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
-        'status',
-        'business_id'
+        'asset_category_id',
+        'status', // 0 = Inactive, 1 = Active
+        'business_id',
     ];
 
     public function business()
@@ -20,8 +21,8 @@ class InventoryCategory extends Model
         return $this->belongsTo(Business::class);
     }
 
-    public function inventory()
+    public function assetCategory()
     {
-        return $this->hasMany(Inventory::class);
+        return $this->hasMany(AssetCategory::class);
     }
 }

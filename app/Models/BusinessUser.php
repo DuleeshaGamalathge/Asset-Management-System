@@ -25,4 +25,15 @@ class BusinessUser extends Model
     {
         return $this->belongsTo(Business::class);
     }
+
+    public function inventory()
+    {
+        return $this->hasMany(Inventory::class);
+    }
+
+    public function assetHandling()
+    {
+        return $this->belongsToMany(AssetHandling::class);
+    }
 }
+

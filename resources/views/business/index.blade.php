@@ -11,7 +11,7 @@
             <a class="btn btn-success" href="javascript:void(0)" id="createNewBusiness"> Create New Business</a>
         </div>
     </div>
-    <table class="table table-bordered data-table">
+    <table class="table table-bordered data-table col-12">
         <thead>
             <tr>
                 <th>No</th>
@@ -129,6 +129,8 @@
     --------------------------------------------
     --------------------------------------------*/
     $('#createNewBusiness').click(function () {
+        // window.location.href = '{{ route("business.store") }}';
+
         $('#saveBtn').val("create-business");
         $('#business_id').val('');
         $('#businessForm').trigger("reset");

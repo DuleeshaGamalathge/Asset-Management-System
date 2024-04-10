@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\BusinessUser;
+use App\Models\AssetCategory;
 use App\Models\Business;
+use App\Models\InventoryCategory;
 use DataTables;
-// use App\Models\User;
 
-class BusinessUserController extends Controller
+class AssetCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +20,7 @@ class BusinessUserController extends Controller
 
         if ($request->ajax()) {
 
-            $data = BusinessUser::latest()->get();
+            $data = AssetCategory::latest()->get();
 
             return Datatables::of($data)
                     ->addIndexColumn()
@@ -34,11 +34,11 @@ class BusinessUserController extends Controller
                         }
                     })
                     ->addColumn('action', function($row){
-                        // $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Show" class="show btn btn-primary btn-sm showBusinessUser">View</a>';
+                        // $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Show" class="show btn btn-primary btn-sm showAssetCategory">View</a>';
 
-                        $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editBusinessUser">Edit</a>';
+                        $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editAssetCategory">Edit</a>';
 
-                        $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteBusinessUser">Delete</a>';
+                        $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteAssetCategory">Delete</a>';
 
                         return $btn;
                     })
@@ -48,7 +48,7 @@ class BusinessUserController extends Controller
 
         $businesses = Business::all();
 
-        return view('business_user.index', compact('businesses'));
+        return view('asset_category.index', compact('businesses'));
     }
 
     /**
@@ -59,50 +59,49 @@ class BusinessUserController extends Controller
      */
     public function store(Request $request)
     {
-        BusinessUser::updateOrCreate([
-                    'id' => $request->business_user_id
+        AssetCategory::updateOrCreate([
+                    'id' => $request->asset_category_id
                 ],
                 [
-                    'first_name' => $request->first_name,
-                    'last_name' => $request->last_name,
                     'name' => $request->name,
-                    'business_user_email' => $request->business_user_email,
-                    'contact' => $request->contact,
                     'status' => $request->status == true ? 1 : 0,
                     'business_id'=> $request->business_id
                 ]);
 
-        return response()->json(['success'=>'BusinessUser saved successfully.']);
+        return response()->json(['success'=>'AssetCategory saved successfully.']);
     }
 
     public function show($id)
     {
-        $business_user = BusinessUser::find($id);
-        return view()->json($business_user);
+        $asset_category = AssetCategory::find($id);
+        return view()->json($asset_category);
     }
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\BusinessUser  $business_user
+     * @param  \App\AssetCategory  $asset_category
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $business_user = BusinessUser::find($id);
-        return response()->json($business_user);
+
+        $asset_category = AssetCategory::find($id);
+        return response()->json($asset_category);
+
+        // $businessUser = BusinessUser::with('business')->find($id);
+        // return response()->json($businessUser);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\BusinessUser  $business_user
+     * @param  \App\AssetCategory  $asset_category
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        BusinessUser::find($id)->delete();
+        AssetCategory::find($id)->delete();
 
-        return response()->json(['success'=>'BusinessUser deleted successfully.']);
+        return response()->json(['success'=>'AssetCategory deleted successfully.']);
     }
 }
-

@@ -5,21 +5,17 @@
 <div class="container">
     <div class="row justify-content-between">
         <div class="col-6">
-            <h1 class="g-col-6">Business User Table</h1>
+            <h1 class="g-col-6">Asset Category Table</h1>
         </div>
         <div class="col-4">
-            <a class="btn btn-success" href="javascript:void(0)" id="createNewBusinessUser"> Create New Business User</a>
+            <a class="btn btn-success" href="javascript:void(0)" id="createNewAssetCategory"> Create New Asset Category</a>
         </div>
     </div>
-    <table class="table table-bordered data-table mt-5" id="employee_table">
+    <table class="table table-bordered data-table mt-5" id="asset_category_table">
         <thead>
             <tr>
                 <th>No</th>
-                <th>First Name</th>
-                <th>Last Name</th>
                 <th>Name</th>
-                <th>Email</th>
-                <th>Contact</th>
                 <th>Status</th>
                 <th>Business</th>
                 <th>Action</th>
@@ -39,44 +35,23 @@
                 <h4 class="modal-title" id="modelHeading"></h4>
             </div>
             <div class="modal-body">
-                <form id="business_userForm" name="business_userForm" class="form-horizontal">
-                   <input type="hidden" name="business_user_id" id="business_user_id">
-                   <div class="form-group">
-                        <label for="first_name" class="col control-label">First Name</label>
-                        <div class="col-sm-12">
-                            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter First Name" value="" maxlength="50" required="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="last_name" class="col control-label">Last Name</label>
-                        <div class="col-sm-12">
-                            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter Last Name" value="" maxlength="50" required="">
-                        </div>
-                    </div>
+                <form id="asset_categoryForm" name="asset_categoryForm" class="form-horizontal">
+                   <input type="hidden" name="asset_category_id" id="asset_category_id">
+
                     <div class="form-group">
                         <label for="name" class="col control-label">Name</label>
                         <div class="col-sm-12">
                             <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" value="" maxlength="50" required="">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="business_user_email" class="col control-label">Business User Email</label>
-                        <div class="col-sm-12">
-                            <input type="email" class="form-control" id="business_user_email" name="business_user_email" placeholder="Enter Email" value="" maxlength="50" required="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="contact" class="col control-label">Contact Number</label>
-                        <div class="col-sm-12">
-                            <input type="text" class="form-control" id="contact" name="contact" placeholder="Enter Contact Number" value="" maxlength="50" required="">
-                        </div>
-                    </div>
+
                     <div class="form-group">
                         <label class="form-label" for="status">Status</label>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" name="status" checked role="switch" id="status">
                         </div>
                     </div>
+
                     <div class="form-group">
                         <label class="form-label" for="business_id">Business</label>
                         <select name="business_id" class="form-control">
@@ -85,7 +60,6 @@
                                 <option value="{{ $business->id }}">{{ $business->name }}</option>
                             @endforeach
                         </select>
-
                     </div>
 
                     <div class="col-sm-offset-2 col-sm-10">
@@ -120,17 +94,13 @@
     Render DataTable
     --------------------------------------------
     --------------------------------------------*/
-    var table = $('#employee_table').DataTable({
+    var table = $('#asset_category_table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('business_user.index') }}",
+        ajax: "{{ route('asset_category.index') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'first_name', name: 'first_name'},
-            {data: 'last_name', name: 'last_name'},
             {data: 'name', name: 'name'},
-            {data: 'business_user_email', name: 'business_user_email'},
-            {data: 'contact', name: 'contact'},
             {data: 'status', name: 'status'},
             {data: 'business_id', name: 'business_id'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
@@ -142,11 +112,11 @@
     Click to Button
     --------------------------------------------
     --------------------------------------------*/
-    $('#createNewBusinessUser').click(function () {
-        $('#saveBtn').val("create-business_user");
-        $('#business_user_id').val('');
-        $('#business_userForm').trigger("reset");
-        $('#modelHeading').html("Create New BusinessUser");
+    $('#createNewAssetCategory').click(function () {
+        $('#saveBtn').val("create-asset_category");
+        $('#asset_category_id').val('');
+        $('#asset_categoryForm').trigger("reset");
+        $('#modelHeading').html("Create New AssetCategory");
         $('#ajaxModel').modal('show');
     });
 
@@ -155,18 +125,14 @@
     Click to Edit Button
     --------------------------------------------
     --------------------------------------------*/
-    $('body').on('click', '.editBusinessUser', function () {
-      var business_user_id = $(this).data('id');
-      $.get("{{ route('business_user.index') }}" +'/' + business_user_id +'/edit', function (data) {
-          $('#modelHeading').html("Edit Business User");
+    $('body').on('click', '.editAssetCategory', function () {
+      var asset_category_id = $(this).data('id');
+      $.get("{{ route('asset_category.index') }}" +'/' + asset_category_id +'/edit', function (data) {
+          $('#modelHeading').html("Edit AssetCategory");
           $('#saveBtn').val("edit-user");
           $('#ajaxModel').modal('show');
-          $('#business_user_id').val(data.id);
-          $('#first_name').val(data.first_name);
-          $('#last_name').val(data.last_name);
+          $('#asset_category_id').val(data.id);
           $('#name').val(data.name);
-          $('#business_user_email').val(data.business_user_email);
-          $('#contact').val(data.contact);
           $('#status').val(data.status);
           $('#business_id').val(data.business_id);
       })
@@ -174,7 +140,7 @@
 
     /*------------------------------------------
     --------------------------------------------
-    Create BusinessUser Code
+    Create AssetCategory Code
     --------------------------------------------
     --------------------------------------------*/
     $('#saveBtn').click(function (e) {
@@ -182,13 +148,13 @@
         $(this).html('Sending..');
 
         $.ajax({
-          data: $('#business_userForm').serialize(),
-          url: "{{ route('business_user.store') }}",
+          data: $('#asset_categoryForm').serialize(),
+          url: "{{ route('asset_category.store') }}",
           type: "POST",
           dataType: 'json',
           success: function (data) {
 
-              $('#business_userForm').trigger("reset");
+              $('#asset_categoryForm').trigger("reset");
               $('#ajaxModel').modal('hide');
               table.draw();
 
@@ -202,18 +168,18 @@
 
     /*------------------------------------------
     --------------------------------------------
-    Delete BusinessUser Code
+    Delete AssetCategory Code
     --------------------------------------------
     --------------------------------------------*/
-    $('body').on('click', '.deleteBusinessUser', function () {
+    $('body').on('click', '.deleteAssetCategory', function () {
 
-        var business_user_id = $(this).data("id");
+        var asset_category_id = $(this).data("id");
         var confirmDelete = confirm("Are You sure want to delete !");
 
         if(confirmDelete){
             $.ajax({
                 type: "DELETE",
-                url: "{{ route('business_user.store') }}"+'/'+business_user_id,
+                url: "{{ route('asset_category.store') }}"+'/'+asset_category_id,
                 success: function (data) {
                     table.draw();
                 },

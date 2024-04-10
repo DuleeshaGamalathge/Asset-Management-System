@@ -28,4 +28,23 @@ class Business extends Model
         return $this->hasMany(InventoryCategory::class);
     }
 
+    public function inventory()
+    {
+        return $this->hasMany(Inventory::class);
+    }
+
+    public function assetCategories()
+    {
+        return $this->hasMany(AssetCategory::class);
+    }
+
+    public function assetSubCategory()
+    {
+        return $this->hasMany(AssetSubCategory::class);
+    }
+
+    public function assetHandling()
+    {
+        return $this->hasMany(AssetHandling::class);
+    }
 }
