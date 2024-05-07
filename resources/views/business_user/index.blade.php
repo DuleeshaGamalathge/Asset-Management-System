@@ -1,27 +1,29 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('content')
 
 <div class="container">
     <div class="row justify-content-between">
         <div class="col-6">
-            <h1 class="g-col-6">Business User Table</h1>
+            <h2 class="g-col-6">Business User Table</h1>
         </div>
+        {{-- @if (Auth::user()->can('Create_Users')) --}}
         <div class="col-4">
             <a class="btn btn-success" href="javascript:void(0)" id="createNewBusinessUser"> Create New Business User</a>
         </div>
+        {{-- @endif --}}
     </div>
     <table class="table table-bordered data-table mt-5" id="employee_table">
         <thead>
             <tr>
                 <th>No</th>
-                <th>First Name</th>
-                <th>Last Name</th>
+                {{-- <th>First Name</th>
+                <th>Last Name</th> --}}
                 <th>Name</th>
                 <th>Email</th>
                 <th>Contact</th>
                 <th>Status</th>
-                <th>Business</th>
+                {{-- <th>Business</th> --}}
                 <th>Action</th>
             </tr>
         </thead>
@@ -53,16 +55,16 @@
                             <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter Last Name" value="" maxlength="50" required="">
                         </div>
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="name" class="col control-label">Name</label>
                         <div class="col-sm-12">
                             <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" value="" maxlength="50" required="">
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="form-group">
-                        <label for="business_user_email" class="col control-label">Business User Email</label>
+                        <label for="email" class="col control-label">Business User Email</label>
                         <div class="col-sm-12">
-                            <input type="email" class="form-control" id="business_user_email" name="business_user_email" placeholder="Enter Email" value="" maxlength="50" required="">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" value="" maxlength="50" required="">
                         </div>
                     </div>
                     <div class="form-group">
@@ -77,14 +79,14 @@
                             <input class="form-check-input" type="checkbox" name="status" checked role="switch" id="status">
                         </div>
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label class="form-label" for="business_id">Business</label>
                         <select name="business_id" class="form-control">
                             <option value="">Select Business</option>
                             @foreach ($businesses as $business)
                                 <option value="{{ $business->id }}">{{ $business->name }}</option>
                             @endforeach
-                        </select>
+                        </select> --}}
 
                     </div>
 
@@ -126,13 +128,13 @@
         ajax: "{{ route('business_user.index') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'first_name', name: 'first_name'},
-            {data: 'last_name', name: 'last_name'},
+            // {data: 'first_name', name: 'first_name'},
+            // {data: 'last_name', name: 'last_name'},
             {data: 'name', name: 'name'},
-            {data: 'business_user_email', name: 'business_user_email'},
+            {data: 'email', name: 'email'},
             {data: 'contact', name: 'contact'},
             {data: 'status', name: 'status'},
-            {data: 'business_id', name: 'business_id'},
+            // {data: 'business_id', name: 'business_id'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
@@ -165,7 +167,7 @@
           $('#first_name').val(data.first_name);
           $('#last_name').val(data.last_name);
           $('#name').val(data.name);
-          $('#business_user_email').val(data.business_user_email);
+          $('#email').val(data.email);
           $('#contact').val(data.contact);
           $('#status').val(data.status);
           $('#business_id').val(data.business_id);

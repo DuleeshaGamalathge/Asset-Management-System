@@ -18,5 +18,18 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        // Create roles
+        $superAdminRole = Role::create(['name' => 'Super Admin']);
+        $adminRole = Role::create(['name' => 'Admin']);
+        $userRole = Role::create(['name' => 'User']);
+
+        // Define permissions
+        Permission::create(['name' => 'create-business']);
+        Permission::create(['name' => 'create-user']);
+
+        // Assign permissions to roles
+        $superAdminRole->givePermissionTo(['create-business', 'create-user']);
+        $adminRole->givePermissionTo(['create-business']);
     }
 }

@@ -35,5 +35,10 @@ class BusinessUser extends Model
     {
         return $this->belongsToMany(AssetHandling::class);
     }
+
+    public function business_info()
+    {
+        return $this->hasOne(Business::class, 'id', 'business_id');
+    }
 }
 

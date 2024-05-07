@@ -18,10 +18,21 @@ class InventoryController extends Controller
      */
     public function index(Request $request)
     {
+        $business_id = session()->get('business_id');
+        $query = Inventory::where('business_id',$business_id);
+
+        // $inventories = Inventory::where('inventory_category_id', $inventory_category_id)
+        // ->where('business_id', $business_id)
+        // ->get();
 
         if ($request->ajax()) {
+            // $inventory_category_id = $request->input('inventory_category_id');
 
-            $data = Inventory::latest()->get();
+            // $data = $query->where('inventory_category_id', $inventory_category_id)
+            //             ->latest()
+            //             ->get();
+
+            $data = $query->latest()->get();
 
             return Datatables::of($data)
                     ->addIndexColumn()
@@ -61,6 +72,8 @@ class InventoryController extends Controller
      */
     public function store(Request $request)
     {
+        $business_id = session()->get('business_id');
+
         Inventory::updateOrCreate([
                     'id' => $request->inventory_id
                 ],
@@ -75,7 +88,7 @@ class InventoryController extends Controller
                     'status' => $request->status == true ? 1 : 0,
                     'created_by' => $request->created_by,
                     'updated_by' => $request->updated_by,
-                    'business_id'=> $request->business_id
+                    'business_id'=> $business_id
                 ]);
 
         return response()->json(['success'=>'Inventory saved successfully.']);

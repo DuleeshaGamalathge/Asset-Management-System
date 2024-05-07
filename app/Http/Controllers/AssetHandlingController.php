@@ -17,20 +17,22 @@ class AssetHandlingController extends Controller
      */
     public function index(Request $request)
     {
+        $business_id = session()->get('business_id');
+        $query = AssetHandling::where('business_id',$business_id);
 
         if ($request->ajax()) {
 
-            $data = AssetHandling::latest()->get();
+            $data = $query->latest()->get();
 
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('status', function ($item) {
                         if ($item->status == 0) {
-                            return '<span class="badge badge-danger">Handovered</span>';
+                            return '<span class="badge badge-success">Handovered</span>';
                         }
 
                         if ($item->status == 1) {
-                            return '<span class="badge badge-success">In use</span>';
+                            return '<span class="badge badge-danger">In use</span>';
                         }
                     })
                     ->addColumn('action', function($row){
@@ -60,6 +62,7 @@ class AssetHandlingController extends Controller
      */
     public function store(Request $request)
     {
+        $business_id = session()->get('business_id');
         AssetHandling::updateOrCreate([
                     'id' => $request->asset_handling_id
                 ],
@@ -71,7 +74,7 @@ class AssetHandlingController extends Controller
                     'handover_date' => $request->handover_date,
                     'handover_to' => $request->handover_to,
                     'status' => $request->status == true ? 1 : 0,
-                    'business_id'=> $request->business_id
+                    'business_id'=> $business_id
                 ]);
 
         return response()->json(['success'=>'AssetHandling saved successfully.']);

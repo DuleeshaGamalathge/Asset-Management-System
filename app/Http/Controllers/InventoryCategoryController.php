@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\InventoryCategory;
+use App\Models\Inventory;
 use App\Models\Business;
 use DataTables;
 
@@ -16,10 +17,12 @@ class InventoryCategoryController extends Controller
      */
     public function index(Request $request)
     {
+        $business_id = session()->get('business_id');
+        $query = InventoryCategory::where('business_id',$business_id);
 
         if ($request->ajax()) {
 
-            $data = InventoryCategory::latest()->get();
+            $data = $query->latest()->get();
 
             return Datatables::of($data)
                     ->addIndexColumn()
@@ -58,13 +61,15 @@ class InventoryCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $business_id = session()->get('business_id');
+
         InventoryCategory::updateOrCreate([
                     'id' => $request->inventory_category_id
                 ],
                 [
                     'name' => $request->name,
                     'status' => $request->status == true ? 1 : 0,
-                    'business_id'=> $request->business_id
+                    'business_id'=> $business_id
                 ]);
 
         return response()->json(['success'=>'InventoryCategory saved successfully.']);
@@ -103,4 +108,13 @@ class InventoryCategoryController extends Controller
 
         return response()->json(['success'=>'InventoryCategory deleted successfully.']);
     }
+
+    public function move_to_dashboard($inventory_category_id) {
+        // Retrieve inventories belonging to the specified category
+        $inventories = Inventory::where('inventory_category_id', $inventory_category_id)->get();
+
+        // Return the inventories as JSON response
+        return response()->json($inventories);
+    }
+
 }

@@ -1,0 +1,39 @@
+.btn-150 {
+    background-color: #01497c;
+    color: #fff;
+    width: 150px;
+    height: 40px;
+}
+
+.btn-150:hover,
+.btn-150:focus {
+    color: #fff !important;
+    background-color: #01497c;
+    box-shadow: none;
+    border-color: #01497c;
+}
+
+.btn-150-danger {
+    background-color: #e7515a;
+    color: #fff;
+    width: 150px;
+    height: 40px;
+}
+
+.btn-150-danger:hover,
+.btn-150-danger:focus {
+    color: #fff !important;
+    background-color: #e7515a;
+    box-shadow: none;
+    border-color: #e7515a;
+}
+
+.my-table-select{
+    background-color: transparent;
+    border: none;
+    font-weight: 600;
+    color: #515365;
+    padding: 0 !important;
+    text-align: left !important;
+    width: auto;
+}

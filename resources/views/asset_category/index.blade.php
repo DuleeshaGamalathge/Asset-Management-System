@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('content')
 
@@ -17,7 +17,7 @@
                 <th>No</th>
                 <th>Name</th>
                 <th>Status</th>
-                <th>Business</th>
+                {{-- <th>Business</th> --}}
                 <th>Action</th>
             </tr>
         </thead>
@@ -52,7 +52,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label class="form-label" for="business_id">Business</label>
                         <select name="business_id" class="form-control">
                             <option value="">Select Business</option>
@@ -60,7 +60,7 @@
                                 <option value="{{ $business->id }}">{{ $business->name }}</option>
                             @endforeach
                         </select>
-                    </div>
+                    </div> --}}
 
                     <div class="col-sm-offset-2 col-sm-10">
                      <button type="submit" class="btn btn-primary" id="saveBtn" value="create">Save changes
@@ -102,7 +102,7 @@
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'name', name: 'name'},
             {data: 'status', name: 'status'},
-            {data: 'business_id', name: 'business_id'},
+            // {data: 'business_id', name: 'business_id'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });

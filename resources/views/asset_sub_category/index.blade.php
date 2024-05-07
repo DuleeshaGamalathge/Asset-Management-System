@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('content')
 
 <div class="container">
     <div class="row justify-content-between">
         <div class="col-6">
-            <h1 class="g-col-6">Asset Sub Category Table</h1>
+            <h2 class="g-col-6">Asset Sub Category Table</h2>
         </div>
         <div class="col-4">
             <a class="btn btn-success" href="javascript:void(0)" id="createNewAssetSubCategory"> Create New Asset Sub Category</a>
@@ -18,7 +18,7 @@
                 <th>Name</th>
                 <th>Asset Category</th>
                 <th>Status</th>
-                <th>Business</th>
+                {{-- <th>Business</th> --}}
                 <th>Action</th>
             </tr>
         </thead>
@@ -63,7 +63,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label class="form-label" for="business_id">Business</label>
                         <select name="business_id" class="form-control">
                             <option value="">Select Business</option>
@@ -71,7 +71,7 @@
                                 <option value="{{ $business->id }}">{{ $business->name }}</option>
                             @endforeach
                         </select>
-                    </div>
+                    </div> --}}
 
                     <div class="col-sm-offset-2 col-sm-10">
                      <button type="submit" class="btn btn-primary" id="saveBtn" value="create">Save changes
@@ -114,7 +114,7 @@
             {data: 'name', name: 'name'},
             {data: 'asset_category_id', name: 'asset_category_id'},
             {data: 'status', name: 'status'},
-            {data: 'business_id', name: 'business_id'},
+            // {data: 'business_id', name: 'business_id'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });

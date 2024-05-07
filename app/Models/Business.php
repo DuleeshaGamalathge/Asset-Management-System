@@ -16,11 +16,12 @@ class Business extends Model
         'address',
         'city',
         'status', // 0 = Inactive, 1 = Active
+        'user_id'
     ];
 
     public function users()
     {
-        return $this->hasMany(BusinessUser::class);
+        return $this->hasMany(User::class, 'user_id');
     }
 
     public function invectoryCategories()

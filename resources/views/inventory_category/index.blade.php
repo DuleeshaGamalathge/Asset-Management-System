@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('content')
 
 <div class="container">
     <div class="row justify-content-between">
         <div class="col-6">
-            <h1 class="g-col-6">Inventory Category Table</h1>
+            <h2 class="g-col-6">Inventory Category Table</h2>
         </div>
         <div class="col-4">
             <a class="btn btn-success" href="javascript:void(0)" id="createNewInventoryCategory"> Create New Inventory Category</a>
@@ -17,7 +17,7 @@
                 <th>No</th>
                 <th>Name</th>
                 <th>Status</th>
-                <th>Business</th>
+                {{-- <th>Business</th> --}}
                 <th>Action</th>
             </tr>
         </thead>
@@ -52,13 +52,6 @@
                         </div>
                     </div>
                     {{-- <div class="form-group">
-                        <label for="business_idbusiness_id" class="col control-label">id</label>
-                        <div class="col-sm-12">
-                            <input type="text" class="form-control" id="business_id" name="business_id" placeholder="Enter Name" value="" maxlength="50" required="">
-                        </div>
-                    </div> --}}
-
-                    <div class="form-group">
                         <label class="form-label" for="business_id">Business</label>
                         <select name="business_id" class="form-control">
                             <option value="">Select Business</option>
@@ -66,7 +59,7 @@
                                 <option value="{{ $business->id }}">{{ $business->name }}</option>
                             @endforeach
                         </select>
-                    </div>
+                    </div> --}}
 
                     <div class="col-sm-offset-2 col-sm-10">
                      <button type="submit" class="btn btn-primary" id="saveBtn" value="create">Save changes
@@ -108,9 +101,16 @@
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'name', name: 'name'},
             {data: 'status', name: 'status'},
-            {data: 'business_id', name: 'business_id'},
+            // {data: 'business_id', name: 'business_id'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
-        ]
+        ],
+        createdRow: function(row, data, dataIndex) {
+            // Add click event listener to the 'name' column
+            $('td', row).eq(1).on('click', function() {
+                // Call the goToDashboard function with the ID as an argument
+                goToDashboard(data.id); // Assuming the ID is stored in 'id'
+            });
+        }
     });
 
     /*------------------------------------------
@@ -200,6 +200,72 @@
     });
 
   });
+
+  function goToDashboard(inventory_category_id) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            // var data = {
+            //     'id': id
+            // }
+
+            $.ajax({
+                type: "POST",
+                url: "{{ url('inventory_category/move_to_dashboard') }}/" + inventory_category_id,
+                data: data,
+                dataType: "JSON",
+                success: function(response) {
+                    location.href = '{{ url('/inventory') }}';
+                },
+                statusCode: {
+                    401: function() {
+                        window.location.href =
+                            '{{ route('login') }}'; //or what ever is your login URI
+                    },
+                    419: function() {
+                        window.location.href =
+                            '{{ route('login') }}'; //or what ever is your login URI
+                    },
+                }
+            });
+    }
+
+//     function goToDashboard(id) {
+//     $.ajaxSetup({
+//         headers: {
+//             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//         }
+//     });
+
+//     var data = {
+//         'id': id
+//     }
+
+//     $.ajax({
+//         type: "POST",
+//         url: "{{ url('business/move_to_dashboard') }}",
+//         data: data,
+//         dataType: "JSON",
+//         success: function(response) {
+//             // Redirect to inventory page with category ID
+//             location.href = '{{ url('/inventory') }}' + '?category=' + id;
+//         },
+//         statusCode: {
+//             401: function() {
+//                 window.location.href =
+//                     '{{ route('login') }}'; //or what ever is your login URI
+//             },
+//             419: function() {
+//                 window.location.href =
+//                     '{{ route('login') }}'; //or what ever is your login URI
+//             },
+//         }
+//     });
+// }
+
 </script>
 
 @endsection

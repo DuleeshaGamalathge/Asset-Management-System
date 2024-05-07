@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('content')
 
 <div class="container">
     <div class="row justify-content-between">
         <div class="col-6">
-            <h1 class="g-col-6">Inventory Table</h1>
+            <h2 class="g-col-6">Inventory Table</h2>
         </div>
         <div class="col-4">
             <a class="btn btn-success" href="javascript:void(0)" id="createNewInventory"> Create New Inventory</a>
@@ -25,7 +25,7 @@
                 <th>Status</th>
                 <th>Created By</th>
                 <th>Updated By</th>
-                <th>Business</th>
+                {{-- <th>Business</th> --}}
                 <th>Action</th>
             </tr>
         </thead>
@@ -178,7 +178,7 @@
             {data: 'status', name: 'status'},
             {data: 'created_by', name: 'created_by'},
             {data: 'updated_by', name: 'updated_by'},
-            {data: 'business_id', name: 'business_id'},
+            // {data: 'business_id', name: 'business_id'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });

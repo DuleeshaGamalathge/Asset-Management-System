@@ -17,10 +17,12 @@ class AssetCategoryController extends Controller
      */
     public function index(Request $request)
     {
+        $business_id = session()->get('business_id');
+        $query = AssetCategory::where('business_id',$business_id);
 
         if ($request->ajax()) {
 
-            $data = AssetCategory::latest()->get();
+            $data = $query->latest()->get();
 
             return Datatables::of($data)
                     ->addIndexColumn()
@@ -59,13 +61,15 @@ class AssetCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $business_id = session()->get('business_id');
+
         AssetCategory::updateOrCreate([
                     'id' => $request->asset_category_id
                 ],
                 [
                     'name' => $request->name,
                     'status' => $request->status == true ? 1 : 0,
-                    'business_id'=> $request->business_id
+                    'business_id'=> $business_id
                 ]);
 
         return response()->json(['success'=>'AssetCategory saved successfully.']);
